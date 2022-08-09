@@ -1,5 +1,3 @@
-const e = require("express");
-
 class ProductsApi {
   constructor() {
       this.products = []
