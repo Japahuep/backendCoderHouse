@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Product view</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <!-- incrustar estilos -->
+  <style>
+    .table td,
+    .table th {
+      vertical-align: middle;
+    }
+    h1 {
+      color: blue;
+    }
+    img {
+      height: 100px;
+    };
+    hr {
+      background-color: #ddd;
+    }
+    .jumbotron {
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-3">
+
+    <div class="jumbotron">
+      <h1>Product view</h1>
+      <br>
+      <!-- el valor hayProductos deberia llegar del servidor como un flag boolean para saber si el arreglo esta vacio o lleno -->
+      {{#if listExist}}
+        <div class="table-responsive">
+          <table class="table table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Image</th>
+            </tr>
+            <!-- implementar foreach para cargar productos -->
+            {{#each products}}
+              <tr>
+                <td>{{this.title}}</td>
+                <td>{{this.price}}</td>
+                <td><img src='{{this.thumbnail}}' alt="Product image"></td>
+              </tr>
+            {{/each}}
+          </table>
+        </div>
+      {{else}}
+        <h3 class="alert alert-warning">No products found</h3>
+      {{/if}}
+      <br>
+      <a href="/" type="button" class="btn btn-primary">Load a new product</a>
+    </div>
+  </div>
+
+
+</body>
+
+</html>

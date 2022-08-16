@@ -1,0 +1,29 @@
+html
+  head 
+    title Product view 
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css",
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l", crossorigin="anonymous")
+    style 
+      include ./styles/view.css
+  body 
+    div(class="container mt-3")
+      div(class="jumbotron")
+        h1 Product view
+        |
+        - if (listExist)
+          div(class="table-responsive")
+            table(class="table table-dark")
+              tr 
+                th Name 
+                th Price 
+                th Image 
+              - for (const product of products)
+                - let { title, price, thumbnail } = product
+                tr 
+                  td=title
+                  td=price
+                  td 
+                    img(src=thumbnail, alt="Product image")
+        - else 
+          h3(class="alert alert-warning") No products found
+        a(href="/", type="button", class="btn btn-primary") Load a new product
