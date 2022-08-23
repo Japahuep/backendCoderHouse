@@ -1,0 +1,28 @@
+h1 {
+  color: blue;
+}
+
+img {
+  height: 100px;
+}
+
+div strong {
+  color: blue;
+}
+
+div em {
+  color: green;
+}
+
+div span {
+  color: brown;
+}
+
+label {
+  font-weight: bold;
+  font-style: italic;
+}
+
+.jumbotron {
+  min-height: 100vh;
+}
