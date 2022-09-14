@@ -1,0 +1,43 @@
+CLI 01
+./bin/mongod --dbpath ./_data
+
+CLI 02
+use ecommerce
+
+db.messages.insertMany([{name: "user1@bla.com",fyh: "9/13/2022 10:44:37 PM",message: "Hi!"}, {name: "user2@bla.com",fyh: "9/13/2022 10:44:39 PM",message: "Hello!"},{name: "user3@bla.com",fyh: "9/13/2022 10:44:42 PM",message: "Hi everyone!"}, {name: "user1@bla.com",fyh: "9/13/2022 10:44:45 PM",message: "How are you?"}, {name: "user2@bla.com",fyh: "9/13/2022 10:44:48 PM",message: "Fine, thanks for ask"}, {name: "user3@bla.com",fyh: "9/13/2022 10:44:50 PM",message: "Fine too, thanks"},{name: "user4@bla.com",fyh: "9/13/2022 10:44:52 PM",message: "Hi!"},{name: "user1@bla.com",fyh: "9/13/2022 10:44:55 PM",message: "Hi!"},{name: "user2@bla.com",fyh: "9/13/2022 10:44:58 PM",message: "Hi!"},{name: "user3@bla.com",fyh: "9/13/2022 10:45:07 PM",message: "Hi!"}])
+
+db.products.insertMany([{title: "bike01", price: 120, thumbnail:"https://cdn-icons-png.flaticon.com/128/3198/3198344.png"}, {title: "bike02", price: 580, thumbnail: "https://cdn-icons-png.flaticon.com/128/685/685784.png"}, {title: "bike03", price: 900, thumbnail: "https://cdn-icons-png.flaticon.com/128/2736/2736775.png"}, {title: "bike04", price: 1280, thumbnail: "https://cdn-icons-png.flaticon.com/128/130/130276.png"}, {title: "bike05", price: 1700, thumbnail: "https://cdn-icons-png.flaticon.com/128/3198/3198336.png"}, {title: "bike06", price: 2300, thumbnail: "https://cdn-icons-png.flaticon.com/128/2972/2972185.png"}, {title: "bike07", price: 2860, thumbnail: "https://cdn-icons-png.flaticon.com/128/931/931085.png"}, {title: "bike08", price: 3350, thumbnail: "https://cdn-icons-png.flaticon.com/128/732/732944.png"}, {title: "bike09", price: 4320, thumbnail: "https://cdn-icons-png.flaticon.com/128/2972/2972215.png"}, {title: "bike10", price: 4990, thumbnail: "https://cdn-icons-png.flaticon.com/128/754/754060.png"}])
+
+db.messages.find()
+
+db.products.find()
+
+db.messages.countDocuments()
+
+db.products.countDocuments()
+
+db.products.insertOne({title: "bike11", price: 2000, thumbnail: "https://cdn-icons-png.flaticon.com/128/2736/2736831.png"})
+
+db.products.find({price: {$lt: 1000}})
+
+db.products.find({$and: [{price: {$gt: 1000}}, {price: {$lt: 3000}}]})
+
+db.products.find({price: {$gt: 3000}})
+
+db.products.find({}, {"title": 1, "_id": 0}).sort({"price": 1}).skip(2).limit(1)
+
+db.products.updateMany({}, {$set: {stock: 100}})
+
+db.products.updateMany({price: {$gt: 4000}}, {$set: {stock: 0}})
+
+db.products.deleteMany({price: {$lt: 1000}})
+
+use admin
+
+db.createUser({user: "pepe", pwd: "asd456", roles: [{role: "read", db: "ecommerce"}]})
+
+CLI 01
+./bin/mongod --dbpath ./_data --auth
+
+CLI 02
+./bin/mongosh -u pepe
