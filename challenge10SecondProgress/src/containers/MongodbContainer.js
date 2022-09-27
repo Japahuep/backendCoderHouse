@@ -3,43 +3,32 @@ import config from '../config.js';
 
 await mongoose.connect(config.mongodb.cnxStr, config.mongodb.options);
 
-class MongodContainer {
+class MongodbContainer {
 
     constructor(collName, schema) {
       this.coll = mongoose.model(collName, schema);
     }
 
     async list(id) {
-      // const elements = await this.listAll();
-      // const element = elements.find(elementItem => elementItem.id === id);
-      // return element;
+      return await this.coll.find({id: {$eq: id}});
     }
     
     async listAll() {
-      // try {
-      //   const elements = await fs.readFile(this.route, 'utf-8');
-      //   return JSON.parse(elements);
-      // } catch (err) {
-      //   return [];
-      // }
+      try {
+        return await this.coll.find({});
+      } catch (err) {
+        return [];
+      }
     }
 
     async save(element) {
-      // const elements = await this.listAll();
-      // let id = 0;
-      // const length = elements.length;
-      // if (length > 0) {
-      //   id = (parseInt(elements[length-1].id) + 1).toString();
-      // } else {
-      //   id = '1';
-      // }
-      // element.id = id;
-      // element.timestamp = Date.now()
-      // elements.push(element);
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      element.timestamp = Date.now()
+      await this.coll.insertOne(element);
     }
 
     async include(element, id) {
+
+
       // const elements = await this.listAll();
       // const index = elements.map(elementItem => elementItem.id).indexOf(id);
       // let container = elements[index];
@@ -53,26 +42,15 @@ class MongodContainer {
     }
 
     async update(element, id) {
-      // const elements = await this.listAll();
-      // let index = elements.map(elementItem => elementItem.id).indexOf(id);
-      // if (index !== -1) {
-      //   element.id = id;
-      //   elements[index] = element;
-      // }
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      return await this.coll.updateOne({_id: {$eq: id}}, {$set: element});
     }
 
     async deleteById(id) {
-      // let elements = await this.listAll();
-      // elements = elements.filter(element => element.id !== id);
-      // console.log(`\nThe element with id: ${id} have been removed\n`)
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      await this.coll.deleteOne({_id: {$eq: id}});
     }
 
     async deleteAll() {
-      // const elements = [];
-      // console.log('nThe elements have been removed\n');
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      await this.coll.deleteMany({});
     }
 
     async removeById(id, idElement) {
@@ -84,4 +62,4 @@ class MongodContainer {
     }
 }
 
-export default MongodContainer;
+export default MongodbContainer;

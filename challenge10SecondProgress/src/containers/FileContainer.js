@@ -24,7 +24,7 @@ class FileContainer {
 
     async save(element) {
       const elements = await this.listAll();
-      let id = 0;
+      let id;
       const length = elements.length;
       if (length > 0) {
         id = (parseInt(elements[length-1].id) + 1).toString();
@@ -69,7 +69,7 @@ class FileContainer {
 
     async deleteAll() {
       const elements = [];
-      console.log('nThe elements have been removed\n');
+      console.log('\nThe elements have been removed\n');
       await fs.writeFile(this.route, JSON.stringify(elements));
     }
 

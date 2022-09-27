@@ -10,19 +10,20 @@ switch (process.env.PERS) {
         cartsDao = new CartsDaoFile()
         break
     case 'firebase':
-        
+        const { default: ProductsDaoFirebase } = await import('./products/ProductsDaoFirebase.js')
+        const { default: CartsDaoFirebase } = await import('./carts/CartsDaoFirebase.js')
+
+        productsDao = new ProductsDaoFirebase()
+        cartsDao = new CartsDaoFirebase()
         break
     case 'mongodb':
-        
-        break
-    case 'mariadb':
-        
-        break
-    case 'sqlite3':
-        
+        const { default: ProductsDaoMongodb } = await import('./products/ProductsDaoMongodb.js')
+        const { default: CartsDaoMongodb } = await import('./carts/CartsDaoMongodb.js')
+
+        productsDao = new ProductsDaoMongodb()
+        cartsDao = new CartsDaoMongodb()
         break
     default:
-        
         break
 }
 
