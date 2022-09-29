@@ -41,7 +41,7 @@ function onlyAdmins(req, res, next) {
 
 const productsRouter = new Router()
 
-productsRouter.get('/:id', async (req, res) => {
+productsRouter.get('/', async (req, res) => {
   console.log('HTTP GET');
 
   if (Object.entries(req.query).length > 0) {
