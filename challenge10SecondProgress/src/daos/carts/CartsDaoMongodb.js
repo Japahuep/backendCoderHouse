@@ -4,7 +4,9 @@ class CartsDaoMongodb extends MongodbContainer {
 
   constructor() {
     super('carts', {
-      products: { type: [], required: true }
+      timestamp: {type: Number, required: true},
+      id: {type: String, required: true},
+      products: { type: []},
     })
   }
 

@@ -101,12 +101,14 @@ cartsRouter.get('/:id/products', async (req, res) => {
   console.log('HTTP GET');
   const id = req.params.id;
   const cart = await cartsApi.list(id) 
-  res.json(cart.products);
+  const products = cart[0].products
+  res.json(products);
 })
 
 cartsRouter.post('/:id/products', async (req, res) => {
   console.log('HTTP POST');
   const id = req.params.id;
+  console.log(id, "\n",req.body, "\n");
   res.json(await cartsApi.include(req.body, id));
 })
 

@@ -22,31 +22,35 @@ class MongodbContainer {
     }
 
     async save(element) {
+      const elements = await this.listAll();
+      console.log(elements);
+      let id;
+      const length = elements.length;
+      if (length > 0) {
+        id = (parseInt(elements[length-1].id) + 1).toString();
+      } else {
+        id = '1';
+      }
+      element.id = id;
       element.timestamp = Date.now()
-      await this.coll.insertOne(element);
+      await this.coll.create(element);
     }
 
     async include(element, id) {
-
-
-      // const elements = await this.listAll();
-      // const index = elements.map(elementItem => elementItem.id).indexOf(id);
-      // let container = elements[index];
-      // let products = container.products
-      // if (products) {
-      //   products.push(element);
-      // } else {
-      //   container.products = [element];
-      // }
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      const cart = await this.list(id);
+      const products = cart[0].products;
+      products.push(element);
+      await this.coll.updateOne({id: {$eq: id}}, {$set: {products: products}});
     }
 
     async update(element, id) {
-      return await this.coll.updateOne({_id: {$eq: id}}, {$set: element});
+      const {title, price, thumbnail} = element;
+      const timestamp = Date.now()
+      return await this.coll.updateOne({id: {$eq: id}}, {$set: {title: title, price: price, thumbnail: thumbnail, timestamp: timestamp}});
     }
 
     async deleteById(id) {
-      await this.coll.deleteOne({_id: {$eq: id}});
+      await this.coll.deleteOne({id: {$eq: id}});
     }
 
     async deleteAll() {
@@ -54,11 +58,10 @@ class MongodbContainer {
     }
 
     async removeById(id, idElement) {
-      // const elements = await this.listAll();
-      // const index = elements.map(elementItem => elementItem.id).indexOf(id);
-      // let container = elements[index];
-      // container.products = container.products.filter(element => element.id !== idElement);
-      // await fs.writeFile(this.route, JSON.stringify(elements));
+      const cart = await this.list(id);
+      let products = cart[0].products;
+      products = products.filter(element => element.id !== idElement);
+      await this.coll.updateOne({id: {$eq: id}}, {$set: {products: products}});
     }
 }
 

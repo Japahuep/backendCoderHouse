@@ -110,8 +110,8 @@ function makeHtmlTable(productos) {
                   <td><a type="button" onclick="llenarFormulario('${prod.title}', '${prod.price}','${prod.thumbnail}')" title="copiar a formulario...">${prod.title}</a></td>
                   <td>$${prod.price}</td>
                   <td><img width="50" src=${prod.thumbnail} alt="not found"></td>
-                  <td><a type="button" onclick="borrarProducto('${prod.id}')">borrar</a></td>
-                  <td><a type="button" onclick="actualizarProducto('${prod.id}')">actualizar</a></td>
+                  <td><a type="button" onclick="borrarProducto('${prod._id}')">borrar</a></td>
+                  <td><a type="button" onclick="actualizarProducto('${prod._id}')">actualizar</a></td>
                   </tr>`
       }
       html += `

@@ -7,6 +7,8 @@ class ProductsDaoMongodb extends MongodbContainer {
       title: { type: String, required: true },
       price: { type: Number, required: true },
       thumbnail: { type: String, required: true },
+      timestamp: {type: Number, required: true},
+      id: {type: String, required: true},
       })
   }
 }
