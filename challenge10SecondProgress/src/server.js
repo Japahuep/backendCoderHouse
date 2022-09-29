@@ -41,7 +41,7 @@ function onlyAdmins(req, res, next) {
 
 const productsRouter = new Router()
 
-productsRouter.get('/', async (req, res) => {
+productsRouter.get('/:id', async (req, res) => {
   console.log('HTTP GET');
 
   if (Object.entries(req.query).length > 0) {
@@ -50,10 +50,6 @@ productsRouter.get('/', async (req, res) => {
   } else {
     res.json(await productsApi.listAll());
   }
-})
-
-productsRouter.get('/:id', async (req, res) => {
-    
 })
 
 productsRouter.post('/', onlyAdmins, async (req, res) => {
@@ -78,10 +74,6 @@ productsRouter.delete('/:id', onlyAdmins, async (req, res) => {
 // configuro router de carritos
 
 const cartsRouter = new Router()
-
-cartsRouter.get('/', async (req, res) => {
-    
-})
 
 cartsRouter.post('/', async (req, res) => {
   console.log('HTTP POST');
