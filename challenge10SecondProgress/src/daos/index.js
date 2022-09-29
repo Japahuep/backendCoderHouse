@@ -1,6 +1,6 @@
 let productsDao
 let cartsDao
-const config = 'firebase'
+const config = 'mongodb'
 
 switch (config) {
     case 'json':
