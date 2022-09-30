@@ -3,10 +3,11 @@ import FirebaseContainer from "../../containers/FirebaseContainer.js"
 class CartsDaoFirebase extends FirebaseContainer {
 
   constructor() {
-    super('carts.json')
+    super('carts')
   }
 
-  async save(cart = { products: [] }) {
+  async save(cart) {
+    cart.products = []
     return super.save(cart)
   }
 }

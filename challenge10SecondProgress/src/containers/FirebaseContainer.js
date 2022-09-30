@@ -11,22 +11,28 @@ class FirebaseContainer {
 
     constructor(collName) {
       this.coll = db.collection(collName);
+      this.id = 0;
     }
 
     async list(id) {
       try {
-        
+        const doc = this.coll.doc(`${id}`);
+        const item = await doc.get();
+        const res = item.data();
+        return res;
       } catch (err) {
         console.log(err);
       }
-      return await this.coll.find({id: {$eq: id}});
     }
     
     async listAll() {
       try {
-        const querySnapshot = await query.get();
-        console.log(querySnapshot);
-        // return await this.coll.find({});
+        const querySnapshot = await this.coll.get();
+        let docs = querySnapshot.docs;
+        const res = docs.map(doc => ({
+          ...doc.data()
+        }))
+        return res;
       } catch (err) {
         return [];
       }
@@ -38,41 +44,69 @@ class FirebaseContainer {
       let id;
       const length = elements.length;
       if (length > 0) {
-        id = (parseInt(elements[length-1].id) + 1).toString();
+        id = elements.map(elem => parseInt(elem.id));
+        id.sort((a,b) => b-a);
+        console.log(id);
+        id = (id[0] + 1).toString();
+        console.log(id);
       } else {
         id = '1';
       }
       element.id = id;
       element.timestamp = Date.now()
-      await this.coll.create(element);
+      try {
+        let doc = this.coll.doc(`${id}`);
+        await doc.create(element);
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     async include(element, id) {
       const cart = await this.list(id);
-      const products = cart[0].products;
+      console.log(cart);
+      const products = cart.products;
+      
       products.push(element);
-      await this.coll.updateOne({id: {$eq: id}}, {$set: {products: products}});
+      const doc = this.coll.doc(`${id}`);
+      await doc.update({products: products});
     }
 
     async update(element, id) {
       const {title, price, thumbnail} = element;
       const timestamp = Date.now()
-      return await this.coll.updateOne({id: {$eq: id}}, {$set: {title: title, price: price, thumbnail: thumbnail, timestamp: timestamp}});
+      try {
+        const doc = this.coll.doc(`${id}`);
+        await doc.update({title: title, price: price, thumbnail: thumbnail, timestamp: timestamp});
+      } catch (err) {
+        console.log(err);
+      }
     }
 
     async deleteById(id) {
-      await this.coll.deleteOne({id: {$eq: id}});
+      try {
+        const doc = this.coll.doc(`${id}`);
+        await doc.delete();
+      } catch (err) {
+        console.log(err);
+      }
     }
-
+    
     async deleteAll() {
-      await this.coll.deleteMany({});
+      const documents = await this.coll.listDocuments();
+      documents.map(doc => doc.delete());
     }
 
     async removeById(id, idElement) {
-      const cart = await this.list(id);
-      let products = cart[0].products;
-      products = products.filter(element => element.id !== idElement);
-      await this.coll.updateOne({id: {$eq: id}}, {$set: {products: products}});
+      try {
+        const cart = await this.list(id);
+        let products = cart.products;
+        products = products.filter(element => element.id !== idElement);
+        const doc = this.coll.doc(`${id}`);
+        await doc.update({products: products});
+      } catch (err) {
+        console.log(err);
+      }
     }
 }
 

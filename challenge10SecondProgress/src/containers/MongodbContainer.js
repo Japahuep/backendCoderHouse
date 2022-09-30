@@ -27,7 +27,9 @@ class MongodbContainer {
       let id;
       const length = elements.length;
       if (length > 0) {
-        id = (parseInt(elements[length-1].id) + 1).toString();
+        id = elements.map(elem => parseInt(elem.id));
+        id.sort((a,b) => b-a);
+        id = (id[0] + 1).toString();
       } else {
         id = '1';
       }
