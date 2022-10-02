@@ -22,7 +22,6 @@ class FileContainer {
     }
 
     async save(element) {
-      console.log(element)
       const elements = await this.listAll();
       let id = 0;
       const length = elements.length;

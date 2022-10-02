@@ -3,7 +3,7 @@ import express from 'express';
 import { Server as HttpServer } from 'http';
 import { Server as Socket } from 'socket.io';
 
-import MemoryContainer from './containers/MemoryContainer.js';
+// import MemoryContainer from './containers/MemoryContainer.js';
 import FileContainer from './containers/FileContainer.js';
 import config from './config.js';
 
@@ -11,14 +11,13 @@ import { faker } from '@faker-js/faker';
 
 import { normalize, schema } from "normalizr";
 
-
 //--------------------------------------------
 // Instancia servidor, socket y api
 const app = express()
 const httpServer = new HttpServer(app)
 const io = new Socket(httpServer)
 
-const productsApi = new MemoryContainer();
+// const productsApi = new MemoryContainer();
 const messagesApi = new FileContainer(`${config.fileSystem.path}/messages.json`);
 
 //--------------------------------------------
@@ -43,19 +42,18 @@ io.on('connection', async socket => {
   //products  listAll - save
   console.log('New client connected');
 
-  const products = await productsApi.listAll();
-  socket.emit('products', products);
+  // let products = productsApi.listAll();
+  // socket.emit('products', products);
 
-  socket.on('newProduct', async product => {
-    await productsApi.save(product);
-    products = await productsApi.listAll();
-    io.sockets.emit('products', products);
-  });
-
+  // socket.on('newProduct', product => {
+  //   productsApi.save(product);
+  //   products = productsApi.listAll();
+  //   io.sockets.emit('products', products);
+  // });
+  
   //messages  listAll - save
   let messages = await listNormalizedMessages();
   socket.emit('messages', messages);
-
   socket.on('newMessage', async message => {
     await messagesApi.save(message);
     messages = await listNormalizedMessages();

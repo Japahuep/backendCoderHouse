@@ -1,7 +1,6 @@
-import { denormalize, schema } from "normalizr";
-
 const socket = io.connect();
-
+const denormalize = normalizr.denormalize;
+const schema = normalizr.schema;
 //------------------------------------------------------------------------------------
 
 const formSaveProduct = document.getElementById('formSaveProduct')
@@ -52,14 +51,17 @@ const post = new schema.Entity('posts', {
 
 /* ----------------------------------------------------------------------------- */
 
-const inputUsername = document.getElementById('username')
+const inputUsername = document.getElementById('inputUsername')
 const inputMessage = document.getElementById('inputMessage')
 const btnSend = document.getElementById('btnSend')
 
 const formPostMessage = document.getElementById('formPostMessage')
 formPostMessage.addEventListener('submit', e => {
   e.preventDefault()
-  console.log('Hi!')
+
+  const date = new Date;
+  const fyh = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+
   const message = {
     author: {
       email: inputUsername.value,
@@ -67,9 +69,10 @@ formPostMessage.addEventListener('submit', e => {
       lName: document.getElementById('lastname').value,
       age: document.getElementById('age').value,
       alias: document.getElementById('alias').value,
-      avatar: document.getElementById('avatar').value
+      avatar: document.getElementById('avatar').value,
     },
     text: inputMessage.value,
+    fyh: fyh,
   };
 
   socket.emit('newMessage', message);
@@ -78,15 +81,19 @@ formPostMessage.addEventListener('submit', e => {
 })
 
 socket.on('messages', normalizedMessages => {
-    // console.log(`Compression ratio: ${compressRatio}`);
-    // document.getElementById('compression-info').innerText = compressRatio;
+  const denormalizedMessages = denormalize(
+    normalizedMessages.result, post, normalizedMessages.entities
+  );
+  console.log(normalizedMessages);
+  console.log(denormalizedMessages);
+  const originalSize = JSON.stringify(denormalizedMessages).length;
+  const compressSize = JSON.stringify(normalizedMessages).length;
+  const compressRatio = (100 * compressSize / originalSize).toFixed(2);
 
-    const denormalizedMessages = denormalize(
-      normalizedMessages.result, post, normalizedMessages.entities
-    );
-    console.log(denormalizedMessages.messages);
-    const messageHtml = makeHtmlList(denormalizedMessages.messages)
-    document.getElementById('messages').innerHTML = messageHtml;
+  document.getElementById('compression-info').innerText = compressRatio;
+
+  const messageHtml = makeHtmlList(denormalizedMessages.messages)
+  document.getElementById('messages').innerHTML = messageHtml;
 })
 
 function makeHtmlList(messages) {
@@ -96,7 +103,7 @@ function makeHtmlList(messages) {
                 <b style="color:blue;">${message.author.email}</b>
                 [<span style="color:brown;">${message.fyh}</span>] :
                 <i style="color:green;">${message.text}</i>
-                <img width="50" src="${mensaje.author.avatar}" alt=" ">
+                <img width="50" src="${message.author.avatar}" alt=" ">
             </div>
         `)
     }).join(" ");
