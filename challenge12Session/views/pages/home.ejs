@@ -13,6 +13,12 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+      integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
 
   <body>
@@ -36,9 +42,9 @@
         <form id="formSaveProduct">
           <!-- Campo nombre del producto -->
           <div class="form-group">
-            <label for="name">Name</label>
+            <label for="title">Name</label>
             <input
-              id="name"
+              id="title"
               class="form-control"
               type="text"
               name="title"
@@ -79,7 +85,7 @@
 
       <div class="jumbotron">
         <h1>
-          Centro de Mensajes (Compresión: <span id="compresion-info"></span>%)
+          Centro de Mensajes (Compresión: <span id="compression-info"></span>%)
         </h1>
         <br />
 

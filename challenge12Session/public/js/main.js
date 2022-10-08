@@ -22,7 +22,7 @@ socket.on("products", (products) => {
 });
 
 function makeHtmlTable(products) {
-  return fetch("templates/productsTable.hbs")
+  return fetch("templates/products-table.hbs")
     .then((res) => res.text())
     .then((tpl) => {
       const template = Handlebars.compile(tpl);

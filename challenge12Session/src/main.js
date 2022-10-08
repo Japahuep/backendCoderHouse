@@ -25,7 +25,8 @@ const io = new Socket(httpServer);
 // configuro el socket
 
 io.on("connection", async (socket) => {
-  addMessagesHandlers(socket);
+  addProductsHandlers(socket, io.sockets);
+  addMessagesHandlers(socket, io.sockets);
 });
 
 //--------------------------------------------
@@ -46,12 +47,13 @@ app.use(
     store: MongoStore.create({
       mongoUrl: URL,
       mongoOptions: advancedOptions,
+      ttl: 60,
     }),
     secret: "secret",
     resave: false,
     saveUnitialized: false,
     cookie: {
-      maxAge: 10000,
+      maxAge: 600000,
     },
   })
 );

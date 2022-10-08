@@ -5,16 +5,16 @@ const __dirname = path.resolve();
 
 const authWebRouter = new Router();
 
+let sessionName;
+
 authWebRouter.get("/", (req, res) => {
   res.send("Express server ready");
 });
 
 authWebRouter.get("/login", (req, res) => {
-  if (req.session.counter) {
-    req.session.counter++;
-    res.send(`You are visited this site ${req.session.counter} times`);
+  if (sessionName) {
+    res.send(`You are loged ${sessionName}`);
   } else {
-    req.session.counter = 1;
     res.sendFile(path.join(__dirname + "/views/login.html"));
   }
 });
@@ -24,13 +24,16 @@ authWebRouter.get("/logout", (req, res) => {
     if (err) {
       res.json({ status: "Logout error", body: err });
     } else {
-      res.send("Logout ok");
+      res.render(path.join(__dirname + "/views/pages/logout.ejs"), {
+        sessionName,
+      });
     }
   });
 });
 
 authWebRouter.post("/login", (req, res) => {
   req.session.name = req.body.name;
+  sessionName = req.session.name;
   res.redirect("/home");
 });
 

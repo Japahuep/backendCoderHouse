@@ -1,8 +1,7 @@
 import messagesApi from "../../api/messages.js";
 import { normalizeMessages } from "../../normalizr/index.js";
 
-// export default async function addMessagesHandlers(socket, sockets) {
-export default async function addMessagesHandlers(socket) {
+export default async function addMessagesHandlers(socket, sockets) {
   let messages = await messagesApi.listAll();
   let normalizedMessages = normalizeMessages(messages);
   socket.emit("messages", normalizedMessages);
@@ -10,6 +9,6 @@ export default async function addMessagesHandlers(socket) {
     await messagesApi.save(message);
     messages = await messagesApi.listAll();
     normalizedMessages = normalizeMessages(messages);
-    io.sockets.emit("messages", normalizedMessages);
+    sockets.emit("messages", normalizedMessages);
   });
 }
