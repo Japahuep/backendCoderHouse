@@ -1,0 +1,58 @@
+[
+  {
+    "author": {
+      "email": "c@m.com",
+      "fName": "C",
+      "lName": "M",
+      "age": "28",
+      "alias": "CM",
+      "avatar": "https://cdn-icons-png.flaticon.com/512/7981/7981736.png"
+    },
+    "text": "Hi!",
+    "fyh": "10/2/2022 12:33:31 PM",
+    "id": "1",
+    "timestamp": 1664724811694
+  },
+  {
+    "author": {
+      "email": "s@m.com",
+      "fName": "S",
+      "lName": "M",
+      "age": "27",
+      "alias": "SM",
+      "avatar": "https://cdn-icons-png.flaticon.com/512/7981/7981733.png"
+    },
+    "text": "Hello!",
+    "fyh": "10/2/2022 12:33:59 PM",
+    "id": "2",
+    "timestamp": 1664724839897
+  },
+  {
+    "author": {
+      "email": "c@m.com",
+      "fName": "C",
+      "lName": "M",
+      "age": "28",
+      "alias": "CM",
+      "avatar": "https://cdn-icons-png.flaticon.com/512/7981/7981736.png"
+    },
+    "text": "Still there?",
+    "fyh": "10/2/2022 12:50:10 PM",
+    "id": "3",
+    "timestamp": 1664725810533
+  },
+  {
+    "author": {
+      "email": "s@m.com",
+      "fName": "S",
+      "lName": "M",
+      "age": "27",
+      "alias": "SM",
+      "avatar": "https://cdn-icons-png.flaticon.com/512/7981/7981733.png"
+    },
+    "text": "Yes!, tell me",
+    "fyh": "10/2/2022 12:50:53 PM",
+    "id": "4",
+    "timestamp": 1664725853403
+  }
+]
