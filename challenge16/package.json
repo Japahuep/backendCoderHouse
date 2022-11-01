@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "name": "entregable",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main.js",
+  "scripts": {
+    "//start": "node src/main.js",
+    "watch": "nodemon src/main.js -e ejs,html,js,json",
+    "test": "node benchmark.js",
+    "start": "0x ./src/main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

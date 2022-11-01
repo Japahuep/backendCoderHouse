@@ -1,0 +1,8 @@
+{"level":"warn","message":"Route not implemented"}
+{"level":"warn","message":"Route not implemented"}
+{"level":"warn","message":"Route not implemented"}
+{"level":"warn","message":"Route not implemented"}
+{"level":"warn","message":"Route not implemented"}
+{"level":"error"}
+{"level":"error","message":"Products API error: TypeError: products.listAllss is not a function"}
+{"level":"error","message":"Products API - TypeError: products.listAllss is not a function"}
