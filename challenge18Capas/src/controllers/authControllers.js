@@ -15,7 +15,7 @@ const getLoginController = async (req, res) => {
   }
 };
 const postLoginController = async (req, res) => {
-  const user = resq.user;
+  const user = req.user;
   console.log(user);
   req.session.userName = req.body.username;
   sessionName = req.session.userName;

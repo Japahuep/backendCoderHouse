@@ -1,7 +1,6 @@
 import express from "express";
 import session from "express-session";
 // import MongoStore from "connect-mongo";
-import bCrypt from "bcrypt";
 import cluster from "cluster";
 import { cpus } from "os";
 const numCpu = cpus().length;
@@ -10,9 +9,7 @@ import { logger } from "./logger/winston.js";
 // Passport
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
-
-import { Server as HttpServer } from "http";
-import { Server as Socket } from "socket.io";
+import bCrypt from "bcrypt";
 
 // Project modules imports
 import config from "./config.js";
@@ -25,9 +22,12 @@ import productsApiRouter from "./routers/api/products.js";
 // import randomApiRouter from "./routers/api/randoms.js";
 import infoWebRouter from "./routers/web/info.js";
 
+import { Server as Socket } from "socket.io";
+import { Server as HttpServer } from "http";
 import addProductsHandlers from "./routers/ws/products.js";
 import addMessagesHandlers from "./routers/ws/messages.js";
 
+//--------------------------------------------
 // Passport
 passport.use(
   "signup",
@@ -95,23 +95,20 @@ const isValidPassword = (user, password) => {
 };
 
 //--------------------------------------------
-// instancio servidor, socket y api
-
+// Instancia servidor, socket y api
 const app = express();
 const httpServer = new HttpServer(app);
 const io = new Socket(httpServer);
 
 //--------------------------------------------
-// configuro el socket
-
+// Configuro el socket
 io.on("connection", async (socket) => {
   addProductsHandlers(socket, io.sockets);
   addMessagesHandlers(socket, io.sockets);
 });
 
 //--------------------------------------------
-// configuro el servidor
-
+// Configuro el servidor
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
@@ -134,11 +131,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 //--------------------------------------------
-// rutas del servidor API REST
+// Rutas del servidor API REST
 app.use("", productsApiRouter);
 // app.use("", randomApiRouter);
+
 //--------------------------------------------
-// rutas del servidor web
+// Rutas del servidor web
 app.use("", authWebRouter);
 app.use("", homeWebRouter);
 app.use("", infoWebRouter);
@@ -146,8 +144,9 @@ app.get("*", (req, res) => {
   logger.warn("Route not implemented");
   res.send("Route not implemented");
 });
+
 //--------------------------------------------
-// inicio el servidor
+// Inicio el servidor
 conectDB(config.mongoDb.DATA_BASE_URL, (err) => {
   if (err) return console.log("Database connection error", err);
   console.log("Database connected");

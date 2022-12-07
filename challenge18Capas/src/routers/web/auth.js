@@ -11,13 +11,14 @@ import {
 
 const authWebRouter = new Router();
 
+//--------------------------------------------
 // Passport
 import passport from "passport";
 import { infoLogger } from "../../logger/winston.js";
 
-
-
-// Login
+//--------------------------------------------
+// Routes
+// *Login
 authWebRouter.get("/login", infoLogger, getLoginController);
 authWebRouter.post(
   "/login",
@@ -29,7 +30,7 @@ authWebRouter.post(
 );
 authWebRouter.get("/faillogin", infoLogger, getFailLoginController);
 
-// Sign up
+// *Sign up
 authWebRouter.get("/signup", infoLogger, getSignupController);
 authWebRouter.post(
   "/signup",
@@ -41,7 +42,7 @@ authWebRouter.post(
 );
 authWebRouter.get("/failsignup", infoLogger, getFailSignUpController);
 
-// Logout
+// *Logout
 authWebRouter.get("/logout", infoLogger, getLogoutController);
 
 export default authWebRouter;

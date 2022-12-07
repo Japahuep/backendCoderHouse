@@ -1,5 +1,5 @@
 import messagesApi from "../../api/messages.js";
-import { normalizeMessages } from "../../normalizr/index.js";
+import { normalizeMessages } from "../../normalizr/messages.js";
 
 export default async function addMessagesHandlers(socket, sockets) {
   let messages = await messagesApi.listAll();

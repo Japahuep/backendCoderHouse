@@ -10,7 +10,7 @@ import {
 
 const homeWebRouter = new Router();
 
-authWebRouter.get("/", infoLogger, getMainController);
+homeWebRouter.get("/", infoLogger, getMainController);
 
 // HomePage
 homeWebRouter.get("/home", [infoLogger, webAuth], getHomeController);
