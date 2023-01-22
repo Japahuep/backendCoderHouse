@@ -1,0 +1,35 @@
+<style>
+  .table td, .table th { vertical-align: middle; }
+</style>
+
+{{#if cart.length}}
+  <h2>Cart</h2>
+  <div class="table-responsive">
+    <table class="table table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Quantity</th>
+        <th>Delete</th>
+      </tr>
+      {{#each cart}}
+        <tr>
+          <td>{{this.title}}</td>
+          <td>${{this.price}}</td>
+          <td><img width="50" src={{this.thumbnail}} alt="not found" /></td>
+          <td>{{this.qty}}</td>
+          <td><button
+              id={{this.id}}
+              class="btn btn-danger my-2"
+            >Delete</button></td>
+        </tr>
+      {{/each}}
+    </table>
+    <button
+      class="btn btn-success float-right mt-3"
+      onclick="location.href='/buy'"
+    >Buy</button>
+
+  </div>
+{{/if}}

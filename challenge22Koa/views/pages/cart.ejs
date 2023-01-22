@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Entry Form</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.2/dist/normalizr.browser.min.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"
+      integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container mt-3">
+      <h1 class="alert alert-success">
+        Your cart
+        <img width="50" src= "https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="cart">
+        </img>
+        <button
+        class="btn btn-danger float-right mt-2"
+        onclick="location.href='/logout'"
+        >
+        Unlog
+      </button>
+      <img class="btn btn-warning float-right mt-2" width="50" src= "https://cdn-icons-png.flaticon.com/512/2544/2544087.png" alt="home" onclick="goHome()">
+      </img>
+      </h1>
+    </div>
+
+    <div class="container mt-3">
+      <div class="jumbotron">
+        <div id="cart"></div>
+      </div>
+
+      <div class="jumbotron">
+        <h1>
+          Message Center (Compression: <span id="compression-info"></span>%)
+        </h1>
+        <br />
+        <hr />
+        
+        <div id="messages"></div>
+
+        <form id="formPostMessage" class="form-inline" autocomplete="off">
+          <div class="form-group">
+            <!-- disbale (inside the next input) -->
+            <input
+              id="inputMessage"
+              type="text"
+              class="form-control my-2 mr-2"
+              placeholder="Enter message..."
+            />
+            <button
+              disabled
+              id="btnSend"
+              type="submit"
+              class="btn btn-primary my-2"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/cart.js"></script>
+    <script>
+      function redirect(page) {
+        location.href = page;
+      }
+      function goHome() {
+        console.log("goHome");
+        redirect("/home");
+      }
+    </script>
+  </body>
+</html>
