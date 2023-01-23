@@ -29,12 +29,12 @@ const info = {
   numCpu,
 };
 
-const getInfoController = async (req, res) => {
-  res.render(path.join(__dirname + "/views/pages/info.ejs"), info);
+const getInfoController = async (ctx) => {
+  ctx.response.render(path.join(__dirname + "/views/pages/info.ejs"), info);
 };
 
-const getCompressedInfoController = async (req, res) => {
-  await getInfoController(req, res);
+const getCompressedInfoController = async (ctx) => {
+  await getInfoController(ctx);
 };
 
 export { getInfoController, getCompressedInfoController };

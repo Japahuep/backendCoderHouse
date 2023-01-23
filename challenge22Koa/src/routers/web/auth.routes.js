@@ -1,4 +1,3 @@
-// import { Router } from "express";
 import koaRouter from "koa-router";
 import {
   getLoginController,
@@ -10,7 +9,6 @@ import {
   getLogoutController,
 } from "../../controllers/auth.controller.js";
 
-// const authWebRouter = new Router();
 const authWebRouter = new koaRouter({ prefix: "" });
 
 //--------------------------------------------
